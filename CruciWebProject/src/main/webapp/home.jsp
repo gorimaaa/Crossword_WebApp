@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p>Nouvelle papays</p>
+<p>Nouvelle papdays</p>
 
 </body>
 </html>
