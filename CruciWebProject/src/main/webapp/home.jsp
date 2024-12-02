@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p>Nouvelle ppays</p>
+<p>Nouvelle papays</p>
 
 </body>
 </html>
