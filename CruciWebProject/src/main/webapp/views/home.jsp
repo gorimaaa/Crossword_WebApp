@@ -9,7 +9,7 @@
 <script src="<%=request.getContextPath()%>/js/home.js"></script>
 </head>
 <body>
-<p>Nouvelle papdays</p>
+<p>Nouvelle papgggggdays</p>
 <%=request.getAttribute("message") %>
 
 </body>
