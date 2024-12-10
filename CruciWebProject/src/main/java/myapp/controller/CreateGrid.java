@@ -12,7 +12,6 @@ import java.io.IOException;
 public class CreateGrid extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
         // Rediriger vers la vue JSP
         request.getRequestDispatcher("/views/creategrid.jsp").forward(request, response);
     }
