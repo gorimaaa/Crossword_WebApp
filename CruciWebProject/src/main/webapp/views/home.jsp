@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Home</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/home.css">
 <script src="<%=request.getContextPath()%>/js/home.js"></script>
 </head>
 <body>
-<p>Nouvelle papgggggdays</p>
 <%=request.getAttribute("message") %>
-
+<a href="CreateGrid">Créer une grille</a>
 </body>
 </html>

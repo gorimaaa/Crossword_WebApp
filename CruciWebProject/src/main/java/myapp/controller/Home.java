@@ -17,6 +17,7 @@ public class Home extends HttpServlet {
 
         // Rediriger vers la vue JSP
         request.getRequestDispatcher("/views/home.jsp").forward(request, response);
+        
     }
 }
 
