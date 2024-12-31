@@ -18,10 +18,10 @@ public class DatabaseDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");  // Assurez-vous d'utiliser le bon driver MySQL
 
             // Informations de connexion
-            String serveur = "mysql.exemple.com";
-            String login = "toto";
-            String motDePasse = "123456";
-            String schema = "mabase";
+            String serveur = "localhost:3306";
+            String login = "root";
+            String motDePasse = "";
+            String schema = "test";
             String url = "jdbc:mysql://" + serveur + "/" + schema + "?user=" + login + "&password=" + motDePasse;
 
             // Connexion à la base de données
@@ -31,12 +31,12 @@ public class DatabaseDAO {
             stmt = con.createStatement();
 
             // Exécution de la requête
-            rst = stmt.executeQuery("SELECT * FROM etudiants WHERE nom = 'Dupont'");
+            rst = stmt.executeQuery("SELECT * FROM etudiants WHERE nom = 'abdel'");
 
             // Récupération et affichage des résultats
             while (rst.next()) {
-                String prenom = rst.getString("prenom");
-                System.out.println(prenom);  // Affiche le prénom des étudiants
+                String nom = rst.getString("nom");
+                System.out.println(nom);  // Affiche le nom des étudiants
             }
         } catch (Exception e) {
             System.out.println("Erreur : " + e.getMessage());
