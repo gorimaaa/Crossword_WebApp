@@ -99,6 +99,52 @@ public class GridDao {
 
         return grids;
     }
+    
+    public boolean insertFinishedGrid(int dimX, int dimY, String name, String difficulty, String solutionsRows, String solutionsColumns, String hintsRows, String hintsColumns, int userId) {
+        int idFGrid = getLastIdFGrid();
+    	String query = "INSERT INTO FinishedGrids (dim_x, dim_y, name, difficulty, created_at, solutions_rows, solutions_columns, hints_rows, hints_columns, idUser, idFGrid) "
+                     + "VALUES (?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = databaseDAO.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+             
+            stmt.setInt(1, dimX);
+            stmt.setInt(2, dimY);
+            stmt.setString(3, name);
+            stmt.setString(4, difficulty);
+            stmt.setString(5, solutionsRows);
+            stmt.setString(6, solutionsColumns);
+            stmt.setString(7, hintsRows);
+            stmt.setString(8, hintsColumns);
+            stmt.setInt(9, userId);
+            stmt.setInt(10, idFGrid + 1);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // Retourne true si l'insertion a réussi
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Retourne false en cas d'erreur
+        }
+    }
+    
+    
+    public int getLastIdFGrid() {
+        String query = "SELECT MAX(idFGrid) AS lastId FROM FinishedGrids";
+        int lastId = -1; // Valeur par défaut si aucune grille n'existe
+
+        try (Connection conn = databaseDAO.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                lastId = rs.getInt("lastId");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lastId;
+    }
+
 
 
 

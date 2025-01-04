@@ -5,9 +5,12 @@ package myapp.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import myapp.dao.GridDao;
 
 import java.io.BufferedReader;
-import java.io.IOException; 
+import java.io.IOException;
+
+
 
 @WebServlet("/CreateGridServlet")
 public class CreateGridServlet extends HttpServlet {
@@ -18,29 +21,37 @@ public class CreateGridServlet extends HttpServlet {
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	// Lire le corps de la requête
-        StringBuilder jsonBuilder = new StringBuilder();
-        try (BufferedReader reader = request.getReader()) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonBuilder.append(line);
+        try {
+            // Récupération des paramètres envoyés depuis le front-end
+            int dimX = Integer.parseInt(request.getParameter("dim_x"));
+            int dimY = Integer.parseInt(request.getParameter("dim_y"));
+            String name = request.getParameter("gridName");
+            String difficulty = request.getParameter("difficulty");
+            String solutionsRows = request.getParameter("rows");
+            String solutionsColumns = request.getParameter("columns");
+            String hintsRows = request.getParameter("rows_hints");
+            String hintsColumns = request.getParameter("columns_hints");
+            int userId = Integer.parseInt(request.getParameter("userId"));
+            GridDao gridDao = new GridDao();
+            System.out.println(userId);
+
+            // Insertion dans la base de données
+            boolean success = gridDao.insertFinishedGrid(dimX, dimY, name, difficulty, solutionsRows, solutionsColumns, hintsRows, hintsColumns, userId);
+
+            // Retourner une réponse HTTP appropriée
+            if (success) {
+                request.setAttribute("responseMessage", "La sauvegarde de la grille s'est bien passé.");
+            } else {
+                request.setAttribute("responseMessage", "Une erreur s'est passé lors de la création.");
             }
+        } catch (Exception e) {
+            // Gestion des erreurs
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            request.setAttribute("responseMessage", "Une erreur s'est passé lors de la création");
         }
-
-        // Convertir en chaîne JSON
-        String requestBody = jsonBuilder.toString();
-        System.out.println("Body reçu : " + requestBody);
-
-        /*// Optionnel : si vous voulez manipuler les données JSON
-        // Vous pouvez utiliser une bibliothèque comme org.json, Gson ou Jackson
-        JSONObject jsonObject = new JSONObject(requestBody); // Si vous utilisez org.json
-        String gridName = jsonObject.getString("gridName");
-        System.out.println("Nom de la grille : " + gridName);
-
-        // Répondre au client
-        response.setContentType("application/json");
-        response.getWriter().write("{\"message\":\"Requête traitée avec succès !\"}");
-        // Rediriger vers la vue JSP*/
+    
+              // Rediriger vers la vue JSP*/
         request.getRequestDispatcher("/views/creategrid.jsp").forward(request, response);
     }
 }

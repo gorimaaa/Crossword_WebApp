@@ -13,8 +13,8 @@ public class UserDao {
     DatabaseDAO dbQuery = new DatabaseDAO(); 
 
     public boolean registerUser(String username, String password, String email) {
-        String getMaxIdQuery = "SELECT COALESCE(MAX(idUser), 0) + 1 AS nextId FROM users";
-        String insertQuery = "INSERT INTO users (idUser, username, password, role, email) VALUES (?, ?, ?, ?, ?)";
+        String getMaxIdQuery = "SELECT COALESCE(MAX(idUser), 0) + 1 AS nextId FROM Users";
+        String insertQuery = "INSERT INTO Users (idUser, username, password, role, email) VALUES (?, ?, ?, ?, ?)";
  
         try (Connection conn = dbQuery.getConnection();
              PreparedStatement getMaxIdStmt = conn.prepareStatement(getMaxIdQuery);
@@ -62,7 +62,7 @@ public class UserDao {
     }
     
     public void displayAllUsers() {
-        String query = "SELECT * FROM users"; 
+        String query = "SELECT * FROM Users"; 
         try (Connection conn = dbQuery.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
@@ -82,7 +82,7 @@ public class UserDao {
     }
     
     public String getUserRole(String email, String password) {
-        String query = "SELECT role FROM users WHERE email = ? AND password = ?";
+        String query = "SELECT role FROM Users WHERE email = ? AND password = ?";
         try (Connection conn = dbQuery.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -100,7 +100,7 @@ public class UserDao {
     }
     
     public String getUsernameByEmail(String email) {
-        String query = "SELECT username FROM users WHERE email = ? ";
+        String query = "SELECT username FROM Users WHERE email = ? ";
         try (Connection conn = dbQuery.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -117,7 +117,7 @@ public class UserDao {
     }
     
     public int getUserIdByEmail(String email) {
-        String query = "SELECT idUser FROM users WHERE email = ?";
+        String query = "SELECT idUser FROM Users WHERE email = ?";
         try (Connection conn = dbQuery.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
@@ -147,7 +147,7 @@ public class UserDao {
     
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-        String query = "SELECT idUser, username, email, role FROM users";
+        String query = "SELECT idUser, username, email, role FROM Users";
 
         try (Connection conn = dbQuery.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);

@@ -23,12 +23,13 @@
                 <p>Bienvenue, <%= username %> (<%= role %>)</p>
                 <a href="logout" class="btn">Déconnexion</a>
             <% } else { %>
-                <a href="views/login.jsp" class="btn">Se connecter</a>
-                <a href="views/register.jsp" class="btn">S'inscrire</a>
+                <a href="<%=request.getContextPath()%>/views/login.jsp" class="btn">Se connecter</a>
+                <a href="<%=request.getContextPath()%>/views/register.jsp" class="btn">S'inscrire</a>
             <% } %>
         </div>
     </header>
-    <script>
+ <script>
+
     function validateGrid() {
         let error = false;
         // Récupération du nom de la grille et de la difficulté
@@ -47,7 +48,6 @@
         let dim_x = rows.length;
         let dim_y = columns.length;
 
-
         // Vérification des `rows` et `columns` pour détecter des espaces
         rows.forEach((row, index) => {
             if (row.includes(" ")) {
@@ -61,32 +61,28 @@
             }
         });
 
-        if(error){
-    		alert("Merci de remplir toutes la grille")
+        if (error) {
+            alert("Merci de remplir toutes la grille");
             return;
         }
-
-        // Création de l'objet à envoyer
-        const data = {
-            rows: JSON.stringify(rows),
-            columns: JSON.stringify(columns),
-            rows_hints: JSON.stringify(rows_hints),
-            columns_hints: JSON.stringify(columns_hints),
-            gridName: gridName,
-            difficulty: difficulty,
-            dim_x: dim_x,
-            dim_y: dim_y,
-        };
-        console.log(JSON.stringify(data));
-        
 
         // Envoi des données au backend via une requête POST
         fetch("<%= request.getContextPath() %>/CreateGridServlet", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded",
             },
-            body: JSON.stringify(data),
+            body: new URLSearchParams({
+                rows: JSON.stringify(rows),
+                columns: JSON.stringify(columns),
+                rows_hints: JSON.stringify(rows_hints),
+                columns_hints: JSON.stringify(columns_hints),
+                gridName: gridName,
+                difficulty: difficulty,
+                dim_x: dim_x,
+                dim_y: dim_y,
+                userId: <%= idUser %>,
+            }).toString(),
         })
             .then((response) => {
                 if (response.ok) {
@@ -99,11 +95,16 @@
                 console.error("Erreur :", error);
                 alert("Erreur lors de la communication avec le serveur.");
             });
-    }</script>
+    }
+</script>
+ 
 
-<div class="error-msg">
-
-</div>
+     <% 
+            String responseMessage = (String) request.getAttribute("responseMessage");
+            if (responseMessage != null) { 
+        %>
+            <div class="response"><%= responseMessage %></div>
+        <% } %>
 <section class="container-dimensions">
 	<div class="dimensions">
 		<h3>Sélectionnez une dimension pour votre grille</h3>
