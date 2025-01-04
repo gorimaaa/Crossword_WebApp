@@ -65,7 +65,7 @@
             alert("Merci de remplir toutes la grille");
             return;
         }
-
+	let vara =15;
         // Envoi des données au backend via une requête POST
         fetch("<%= request.getContextPath() %>/CreateGridServlet", {
             method: "POST",
