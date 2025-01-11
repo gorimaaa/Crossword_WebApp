@@ -22,8 +22,7 @@
    - Configure the database connection in `DatabaseDAO.java` for the production environment.
 
 ## Demo Video
-
-A short demonstration video showcasing the core features of CruciWeb is included in the repository.
+[Capture vidéo du 2025-01-11 14-41-16.webm](https://github.com/user-attachments/assets/c2b0680d-6ad5-4bd6-b99d-686b47570f2d)
 
 ## Getting Started
 
