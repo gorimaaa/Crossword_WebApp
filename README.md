@@ -13,13 +13,14 @@
 
 1. **Run Locally**:
    - Open the project in Eclipse.
-   - Configure a MySQL database and update credentials in `DatabaseDAO.java`.
+   - Configure a MySQL database, upload the "Database.sql" file in a database and update credentials in `DatabaseDAO.java`.
    - Create and start a Tomcat server to host the application locally.
 
 2. **Production Deployment**:
    - Export the project as a `.war` file from Eclipse.
    - Upload the `.war` file to a production Tomcat server.
    - Configure the database connection in `DatabaseDAO.java` for the production environment.
+   - Upload the "Database.sql" file into MySQL.
 
 ## Demo Video
 [Capture vidéo du 2025-01-11 14-41-16.webm](https://github.com/user-attachments/assets/c2b0680d-6ad5-4bd6-b99d-686b47570f2d)
