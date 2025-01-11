@@ -25,20 +25,4 @@
 ## Demo Video
 [Capture vidéo du 2025-01-11 14-41-16.webm](https://github.com/user-attachments/assets/c2b0680d-6ad5-4bd6-b99d-686b47570f2d)
 
-## Getting Started
-
-### Prerequisites
-
-- JDK 11 or later
-- Apache Tomcat (tested with version 9.0)
-- MySQL Server
-- Eclipse IDE (for local development)
-
-### Installation
-
-1. Clone the repository.
-2. Import the project into Eclipse as a dynamic web project.
-3. Configure MySQL and update `DatabaseDAO.java` with your credentials.
-4. Run the project on Tomcat.
-
 
